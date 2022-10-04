@@ -1,6 +1,6 @@
 # InterviewShare
 
-This is an application where a user can read interview experiences from different companies.
+This is an application where a user can add and read interview experiences from different companies.
 
 Feature
 
