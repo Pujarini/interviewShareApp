@@ -2,7 +2,7 @@
 
 This is an application where a user can add and read interview experiences from different companies.
 
-Feature
+Features
 
 1. You need to login -- add interview experience (p1)
 2. Admin can delete users and posts (p1) Authentication
@@ -10,6 +10,7 @@ Feature
 4. Search according to companies and roles (p0)
 5. Add skeleton on cards while loading (p1)
 6. Add es-lint rules (p1)
+7. You can bookmark an experience
 
 ### Tech stack :
 
