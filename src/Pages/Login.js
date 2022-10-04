@@ -1,7 +1,6 @@
-import { signInWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { auth } from "../firebase";
+import { UserAuth } from "../context/AuthContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -10,10 +9,11 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  const loginUser = async (email, password) => {
-    await signInWithEmailAndPassword(auth, email, password)
+  const { loginUser } = UserAuth();
+
+  const loginExistingUser = async (email, password) => {
+    await loginUser(email, password)
       .then((userCred) => {
-        console.log(userCred.user);
         if (userCred.user.uid) {
           navigate("/");
         }
@@ -28,7 +28,7 @@ const Login = () => {
   const handleLogin = (e) => {
     e.preventDefault();
     if (email && password) {
-      loginUser(email, password);
+      loginExistingUser(email, password);
     }
   };
   return (

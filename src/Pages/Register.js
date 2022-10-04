@@ -1,7 +1,8 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
-import { auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../firebase";
+import { UserAuth } from "../context/AuthContext";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -11,16 +12,21 @@ const Register = () => {
   const [password, setPassword] = useState("");
   let navigate = useNavigate();
 
-  const createUser = async (email, password) => {
+  const { createUser } = UserAuth();
+
+  const createNewUser = async (email, password) => {
     try {
-      const userCred = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      console.log(userCred.user);
+      const userCred = await createUser(email, password);
       if (userCred.user.uid) {
-        navigate("/");
+        await addDoc(collection(db, "users"), {
+          uid: userCred.user.uid,
+          name,
+          authProvider: "local",
+          email,
+        });
+        if (userCred.user.uid) {
+          navigate("/");
+        }
       }
     } catch (error) {
       console.log(error);
@@ -29,9 +35,8 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(email, name, workRole);
     if (email && password) {
-      createUser(email, password);
+      createNewUser(email, password);
     }
   };
 

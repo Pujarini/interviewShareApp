@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { UserAuth } from "../context/AuthContext";
 import AddModal from "./AddModal";
 
 const AddNew = () => {

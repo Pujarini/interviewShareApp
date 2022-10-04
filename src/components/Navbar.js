@@ -1,7 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { UserAuth } from "../context/AuthContext";
 
 const Navbar = () => {
+  const { user, logout } = UserAuth();
+
+  const handleLogout = () => {
+    logout()
+      .then(() => {
+        console.log("logged out");
+      })
+      .catch((err) => {
+        console.log("error while logout");
+      });
+  };
+
   return (
     <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 ">
       <div className="container flex flex-wrap justify-between items-center mx-auto border-2 border-blue-900">
@@ -47,29 +60,50 @@ const Navbar = () => {
                 About
               </a>
             </li>
+
             <li className="block py-4 pr-4 pl-3 text-black rounded hover:bg-gray-100 md:hover:bg-gray-100 md:border-0 md:hover:text-gray-700 md:p-2 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-gray-700">
               <a href="#">Interview Experiences</a>
             </li>
-            <li className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
-              <Link to="login">
-                <button
-                  type="button"
-                  className="rounded border border-gray-200 py-2.5 px-5 text-black hover:text-white bg-gray-400"
+            {user && (
+              <>
+                <li
+                  className="block py-4 pr-4 pl-3 text-black rounded hover:bg-gray-100 md:hover:bg-gray-100 md:border-0 md:hover:text-gray-700 md:p-2 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-gray-700"
+                  // onClick={handleLogout}
                 >
-                  Login
-                </button>
-              </Link>
-            </li>
-            <li className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
-              <Link to="register">
-                <button
-                  type="button"
-                  className="rounded border border-gray-200 py-2.5 px-5 text-black hover:text-white bg-gray-400"
+                  Welcome User
+                </li>
+                <li
+                  className="block py-4 pr-4 pl-3 text-black rounded hover:bg-gray-100 md:hover:bg-gray-100 md:border-0 md:hover:text-gray-700 md:p-2 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-gray-700"
+                  onClick={handleLogout}
                 >
-                  Register
-                </button>
-              </Link>
-            </li>
+                  Log Out
+                </li>
+              </>
+            )}
+            {!user && (
+              <li className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+                <Link to="login">
+                  <button
+                    type="button"
+                    className="rounded border border-gray-200 py-2.5 px-5 text-black hover:text-white bg-gray-400"
+                  >
+                    Login
+                  </button>
+                </Link>
+              </li>
+            )}
+            {!user && (
+              <li className="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+                <Link to="register">
+                  <button
+                    type="button"
+                    className="rounded border border-gray-200 py-2.5 px-5 text-black hover:text-white bg-gray-400"
+                  >
+                    Register
+                  </button>
+                </Link>
+              </li>
+            )}
           </ul>
         </div>
       </div>
