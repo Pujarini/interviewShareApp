@@ -8,11 +8,6 @@ const ShareExperiences = () => {
     <div className="md:container md:mx-auto px-4 h-5/6 flex  items-center justify-evenly flex-col sm:flex-col md:flex-col lg:flex-row xl:flex-row flex-wrap">
       <AddNew />
       <Cards />
-      <Cards />
-      <Cards />
-      <Cards />
-      <Cards />
-      <Cards />
       <AddModal />
     </div>
   );
