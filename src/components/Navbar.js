@@ -21,11 +21,11 @@ const Navbar = () => {
     navigate("/bookmarks");
   };
   return (
-    <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 ">
-      <div className="container flex flex-wrap justify-between items-center mx-auto border-2 border-blue-900">
+    <nav className="bg-dark border-gray-200 px-2 sm:px-4 py-2.5 md:container md:mx-auto ">
+      <div className="container flex flex-wrap justify-between items-center mx-auto">
         <Link to="/">
-          <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-black">
-            InterViewShare
+          <span className="self-center text-xl font-black whitespace-nowrap text-white">
+            InterViewShare .
           </span>
         </Link>
 
@@ -53,38 +53,38 @@ const Navbar = () => {
         </button>
         <div className="w-full md:block md:w-auto" id="navbar-default">
           <ul className="flex flex-col p-4 mt-4 bg-transparent rounded-lg border border-gray-100 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white  md:bg-transparent dark:border-gray-700 ">
-            <li className="block py-4 pr-4 pl-3 text-black rounded hover:bg-gray-100 md:hover:bg-gray-100 md:border-0 md:hover:text-gray-700 md:p-2 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-gray-700">
+            <li className="block py-4 pr-4 pl-3 text-white rounded hover:bg-complement md:hover:bg-complement md:border-0 md:hover:text-complement md:p-2 dark:text-white md:dark:hover:text-white dark:hover:bg-complement-300 dark:hover:text-white md:dark:hover:bg-complement">
               <Link to="/">Home</Link>
             </li>
             <li>
               <a
-                href="#"
+                href="#why"
                 aria-current="page"
-                className="block py-4 pr-4 pl-3 text-black rounded hover:bg-gray-100 md:hover:bg-gray-100 md:border-0 md:hover:text-gray-700 md:p-2 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-gray-700"
+                className="block py-4 pr-4 pl-3 text-white rounded hover:bg-complement md:hover:bg-complement md:border-0 md:hover:text-complement md:p-2 dark:text-white md:dark:hover:text-white dark:hover:bg-complement-300 dark:hover:text-white md:dark:hover:bg-complement"
               >
                 About
               </a>
             </li>
 
-            <li className="block py-4 pr-4 pl-3 text-black rounded hover:bg-gray-100 md:hover:bg-gray-100 md:border-0 md:hover:text-gray-700 md:p-2 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-gray-700">
+            {/* <li className="block py-4 pr-4 pl-3 text-white rounded hover:bg-complement md:hover:bg-complement md:border-0 md:hover:text-complement md:p-2 dark:text-white md:dark:hover:text-white dark:hover:bg-complement-300 dark:hover:text-white md:dark:hover:bg-complement">
               <a href="#">Interview Experiences</a>
-            </li>
+            </li> */}
             {user && (
               <>
                 <li
-                  className="block py-4 pr-4 pl-3 text-black rounded hover:bg-gray-100 md:hover:bg-gray-100 md:border-0 md:hover:text-gray-700 md:p-2 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-gray-700"
+                  className="block py-4 pr-4 pl-3 text-white rounded hover:bg-complement md:hover:bg-complement md:border-0 md:hover:text-complement md:p-2 dark:text-white md:dark:hover:text-white dark:hover:bg-complement-300 dark:hover:text-white md:dark:hover:bg-complement"
                   onClick={openBookMarked}
                 >
                   BookMarks
                 </li>
                 <li
-                  className="block py-4 pr-4 pl-3 text-black rounded hover:bg-gray-100 md:hover:bg-gray-100 md:border-0 md:hover:text-gray-700 md:p-2 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-gray-700"
+                  className="block py-4 pr-4 pl-3 text-white rounded hover:bg-complement md:hover:bg-complement md:border-0 md:hover:text-complement md:p-2 dark:text-white md:dark:hover:text-white dark:hover:bg-complement-300 dark:hover:text-white md:dark:hover:bg-complement"
                   // onClick={handleLogout}
                 >
                   Welcome User
                 </li>
                 <li
-                  className="block py-4 pr-4 pl-3 text-black rounded hover:bg-gray-100 md:hover:bg-gray-100 md:border-0 md:hover:text-gray-700 md:p-2 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-gray-700"
+                  className="block py-4 pr-4 pl-3 text-white rounded hover:bg-complement md:hover:bg-complement md:border-0 md:hover:text-complement md:p-2 dark:text-white md:dark:hover:text-white dark:hover:bg-complement-300 dark:hover:text-white md:dark:hover:bg-complement"
                   onClick={handleLogout}
                 >
                   Log Out
@@ -96,7 +96,7 @@ const Navbar = () => {
                 <Link to="login">
                   <button
                     type="button"
-                    className="rounded border border-gray-200 py-2.5 px-5 text-black hover:text-white bg-gray-400"
+                    className="rounded py-2.5 px-5 text-white hover:text-gray-200 bg-complement"
                   >
                     Login
                   </button>
@@ -108,7 +108,7 @@ const Navbar = () => {
                 <Link to="register">
                   <button
                     type="button"
-                    className="rounded border border-gray-200 py-2.5 px-5 text-black hover:text-white bg-gray-400"
+                    className="rounded py-2.5 px-5 text-white hover:text-gray-200 bg-complement"
                   >
                     Register
                   </button>

@@ -1,6 +1,6 @@
 import { doc, getDoc } from "firebase/firestore";
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { UserAuth } from "../context/AuthContext";
 import { db } from "../firebase";
 
@@ -8,16 +8,22 @@ const Bookmarks = () => {
   const [data, setData] = useState([]);
   const { user } = UserAuth();
 
-  const navigate = useNavigate();
+  const { uid } = user;
+
+  // const navigate = useNavigate();
 
   const fetchBookMarks = async () => {
-    const bookMarkRef = doc(db, "bookmarks", user.uid);
+    const bookMarkRef = doc(db, "bookmarks", uid);
+    console.log(bookMarkRef);
     try {
       const docSnap = await getDoc(bookMarkRef);
       console.log(docSnap.data());
       const bookmarks = [];
-      bookmarks.push(docSnap.data());
-      setData(bookmarks);
+      if (docSnap.data()) {
+        bookmarks.push(docSnap.data());
+        setData(bookmarks);
+        console.log(bookmarks);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -25,11 +31,15 @@ const Bookmarks = () => {
 
   useEffect(() => {
     fetchBookMarks();
-  }, [user]);
+    // eslint-disable-next-line
+  }, [uid]);
+
+  console.log(data);
 
   return (
-    <div className="md:container md:mx-auto px-4 h-5/6 flex  items-center justify-evenly flex-col sm:flex-col md:flex-col lg:flex-row xl:flex-row flex-wrap">
-      {data &&
+    <div className="md:container md:mx-auto h-screen px-4  flex  items-center justify-evenly flex-col sm:flex-col md:flex-col lg:flex-row xl:flex-row flex-wrap">
+      <h1 className="font-extrabold  text-white text-5xl">Your Bookmarks</h1>
+      {/* {data && data.length > 0 ? (
         data.map((item) => {
           return (
             <div
@@ -52,7 +62,10 @@ const Bookmarks = () => {
               </div>
             </div>
           );
-        })}
+        })
+      ) : (
+        <div>Loading....</div>
+      )} */}
     </div>
   );
 };

@@ -16,6 +16,14 @@ module.exports = {
 
       "2xl": "1536px",
     },
+    extend: {
+      colors: {
+        dark: "#121212",
+        complement: "#320064",
+        // gray: "#282828",
+      },
+    },
   },
+
   plugins: [],
 };

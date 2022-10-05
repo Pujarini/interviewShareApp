@@ -9,7 +9,7 @@ import Register from "./Pages/Register";
 
 function App() {
   return (
-    <div className="App">
+    <div className="bg-dark">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />

@@ -58,9 +58,20 @@ const ShareExperiences = () => {
 
   return (
     <>
-      <div className="md:container md:mx-auto px-4 h-5/6 flex  items-center justify-evenly flex-col sm:flex-col md:flex-col lg:flex-row xl:flex-row flex-wrap">
+      <div
+        className="md:container md:mx-auto h-screen flex  items-center justify-evenly flex-col sm:flex-col md:flex-col lg:flex-row xl:flex-row flex-wrap bg-black"
+        id="exp"
+      >
+        <div className="text-center w-full">
+          <h1 className="font-extrabold  text-white text-5xl  ">
+            Find Interview Experiences here
+          </h1>
+          <div className="text-slate-400 text-2xl mt-4">
+            Find according to role, companies and salaries
+          </div>
+        </div>
         {user && (
-          <div className="block p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 my-4  justify-center items-center">
+          <div className="block p-6 max-w-sm bg-dark rounded-lg border border-slate-200 shadow-md hover:bg-slate-400 dark:bg-dark dark:border-slate-400 dark:hover:bg-slate-400 ">
             <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
               Add new experience
             </h5>
@@ -75,18 +86,18 @@ const ShareExperiences = () => {
         {exp &&
           exp.map(({ data, id }) => {
             return (
-              <div className="block p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 my-4">
+              <div className="block p-6 max-w-sm bg-dark rounded-lg border border-slate-200 shadow-md hover:bg-slate-400 dark:bg-dark dark:border-slate-400 dark:hover:bg-slate-400 ">
                 <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                   {`${data.workRole} - ${data.category} Experience`}
                 </h5>
                 <div class="px-2 pt-4 pb-2" onClick={() => openExperience(id)}>
-                  <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+                  <span class="inline-block bg-slate-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
                     {data.company}
                   </span>
-                  <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+                  <span class="inline-block bg-slate-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
                     {data.result}
                   </span>
-                  <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+                  <span class="inline-block bg-slate-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
                     {`${data.salary} LPA`}
                   </span>
                 </div>
