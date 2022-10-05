@@ -8,6 +8,7 @@ import {
   doc,
   updateDoc,
 } from "firebase/firestore";
+import { UserAuth } from "../context/AuthContext";
 
 const AddModal = ({ openModal, closeModal, id }) => {
   const [company, setCompany] = useState("");
@@ -16,6 +17,8 @@ const AddModal = ({ openModal, closeModal, id }) => {
   const [category, setCategory] = useState(null);
   const [result, setResult] = useState(null);
   const [salary, setSalary] = useState("");
+
+  const { user } = UserAuth();
 
   const fetchExperience = async () => {
     const expDocRef = doc(db, "experiences", id);
@@ -40,9 +43,6 @@ const AddModal = ({ openModal, closeModal, id }) => {
     }
     // eslint-disable-next-line
   }, [id]);
-
-  //   const docRef = doc(db, "experiences", id);
-  //   const docSnap = await getDoc(docRef);
 
   let resultOptions = ["Offered", "Not Offered"];
   let options = [
@@ -91,6 +91,7 @@ const AddModal = ({ openModal, closeModal, id }) => {
           category: category,
           result: result,
           salary: salary,
+          createdBy: user.uid,
           created: Timestamp.now(),
         });
         closeModal();
@@ -100,8 +101,6 @@ const AddModal = ({ openModal, closeModal, id }) => {
       }
     }
   };
-
-  console.log(company);
 
   return (
     <>

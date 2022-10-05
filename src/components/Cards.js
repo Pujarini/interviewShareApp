@@ -25,7 +25,6 @@ const Cards = () => {
   }, []);
 
   const deleteExperience = async (id) => {
-    console.log(id);
     const taskDocRef = doc(db, "experiences", id);
     try {
       await deleteDoc(taskDocRef);

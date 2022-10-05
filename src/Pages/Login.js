@@ -19,7 +19,6 @@ const Login = () => {
         }
       })
       .catch((err) => {
-        console.log(err);
         const errMsg = err.message;
         setError(errMsg);
       });
