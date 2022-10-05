@@ -1,9 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { UserAuth } from "../context/AuthContext";
 
 const Navbar = () => {
   const { user, logout } = UserAuth();
+
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     logout()
@@ -15,6 +17,9 @@ const Navbar = () => {
       });
   };
 
+  const openBookMarked = () => {
+    navigate("/bookmarks");
+  };
   return (
     <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 ">
       <div className="container flex flex-wrap justify-between items-center mx-auto border-2 border-blue-900">
@@ -66,6 +71,12 @@ const Navbar = () => {
             </li>
             {user && (
               <>
+                <li
+                  className="block py-4 pr-4 pl-3 text-black rounded hover:bg-gray-100 md:hover:bg-gray-100 md:border-0 md:hover:text-gray-700 md:p-2 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-gray-700"
+                  onClick={openBookMarked}
+                >
+                  BookMarks
+                </li>
                 <li
                   className="block py-4 pr-4 pl-3 text-black rounded hover:bg-gray-100 md:hover:bg-gray-100 md:border-0 md:hover:text-gray-700 md:p-2 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-gray-700"
                   // onClick={handleLogout}

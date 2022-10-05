@@ -57,6 +57,7 @@ const Experience = () => {
       const docRef = doc(db, "bookmarks", createdBy);
       try {
         await setDoc(docRef, { expId: id, ...data });
+        navigate("/bookmarks");
       } catch (error) {
         console.log(error);
       }
