@@ -17,9 +17,12 @@ const Login = () => {
         if (userCred.user.uid) {
           navigate("/");
         }
+        setEmail("");
+        setPassword("");
       })
       .catch((err) => {
         const errMsg = err.message;
+        console.log(errMsg);
         setError(errMsg);
       });
   };

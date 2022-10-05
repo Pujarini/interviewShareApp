@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, setDoc, doc } from "firebase/firestore";
 import { db } from "../firebase";
 import { UserAuth } from "../context/AuthContext";
 
@@ -17,16 +17,18 @@ const Register = () => {
   const createNewUser = async (email, password) => {
     try {
       const userCred = await createUser(email, password);
-      if (userCred.user.uid) {
-        await addDoc(collection(db, "users"), {
+      const uid = userCred.user.uid;
+      if (uid) {
+        const docRef = doc(db, "users", uid);
+        await setDoc(docRef, {
           uid: userCred.user.uid,
           name,
           authProvider: "local",
           email,
+          role: workRole,
+          organization: org,
         });
-        if (userCred.user.uid) {
-          navigate("/");
-        }
+        navigate("/");
       }
     } catch (error) {
       console.log(error);
