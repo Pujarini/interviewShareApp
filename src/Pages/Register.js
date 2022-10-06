@@ -43,10 +43,10 @@ const Register = () => {
   };
 
   return (
-    <div className=" md:container md:mx-auto w-full min-h-screen bg-gray-50 flex flex-col sm:justify-center items-center pt-6 sm:pt-0 text-white">
-      <div className="w-full sm:max-w-md p-5 mx-auto border-gray-200 border  ">
+    <div className="md:container md:mx-auto  h-screen bg-dark flex w-full flex-col sm:justify-center items-center justify-center pt-6 sm:pt-0  text-white">
+      <div className="sm:max-w-md p-10 m-2 mx-auto">
         <div className="text-center mb-10">
-          <h2 className="mb-2 text-5xl font-extrabold">
+          <h2 className="mb-2 text-5xl font-extrabold sm:text-4xl">
             Welcome to InterviewShare.
           </h2>
           <span className="mb-10 text-slate-400 text-center">
