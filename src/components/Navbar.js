@@ -51,7 +51,7 @@ const Navbar = () => {
             ></path>
           </svg>
         </button>
-        <div className="w-full md:block md:w-auto" id="navbar-default">
+        <div className="hidden w-full md:block md:w-auto" id="navbar-default">
           <ul className="flex flex-col p-4 mt-4 bg-transparent rounded-lg border border-gray-100 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white  md:bg-transparent dark:border-gray-700 ">
             <li className="block py-4 pr-4 pl-3 text-white rounded hover:bg-complement md:hover:bg-complement md:border-0 md:hover:text-complement md:p-2 dark:text-white md:dark:hover:text-white dark:hover:bg-complement-300 dark:hover:text-white md:dark:hover:bg-complement">
               <Link to="/">Home</Link>

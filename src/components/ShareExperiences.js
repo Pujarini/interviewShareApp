@@ -59,14 +59,14 @@ const ShareExperiences = () => {
   return (
     <>
       <div
-        className="md:container md:mx-auto h-screen flex  items-center justify-evenly flex-col sm:flex-col md:flex-col lg:flex-row xl:flex-row flex-wrap bg-black"
+        className="md:container md:mx-auto min-h-screen flex  items-center justify-evenly flex-col sm:flex-col sm:flex-nowrap md:flex-col lg:flex-row xl:flex-row flex-wrap bg-black sm:overflow-scroll"
         id="exp"
       >
-        <div className="text-center w-full">
-          <h1 className="font-extrabold  text-white text-5xl  ">
+        <div className="text-center w-full  ">
+          <h1 className="font-extrabold  text-white text-5xl sm:text-3xl ">
             Find Interview Experiences here
           </h1>
-          <div className="text-slate-400 text-2xl mt-4">
+          <div className="text-slate-400 text-2xl mt-4 sm:text-xl">
             Find according to role, companies and salaries
           </div>
         </div>
@@ -86,7 +86,7 @@ const ShareExperiences = () => {
         {exp &&
           exp.map(({ data, id }) => {
             return (
-              <div className="block p-6 max-w-sm bg-dark rounded-lg border border-slate-200 shadow-md hover:bg-slate-400 dark:bg-dark dark:border-slate-400 dark:hover:bg-slate-400 ">
+              <div className="block p-6 min-w-sm bg-dark rounded-lg border border-slate-200 shadow-md hover:bg-slate-400 dark:bg-dark dark:border-slate-400 dark:hover:bg-slate-400 ">
                 <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                   {`${data.workRole} - ${data.category} Experience`}
                 </h5>

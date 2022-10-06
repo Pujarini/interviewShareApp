@@ -6,8 +6,8 @@ const HowPage = () => {
       className="md:container md:mx-auto h-screen bg-dark flex w-full items-center justify-center text-white flex-col"
       id="why"
     >
-      <div className="flex flex-col items-center justify-center  flex-wrap  w-3/6 flex-1">
-        <h1 className="font-extrabold text-white text-5xl m-2">
+      <div className="flex flex-col items-center justify-center  flex-wrap   flex-1">
+        <h1 className="font-extrabold text-white text-5xl m-2 sm:text-3xl">
           Why InterviewShare?
         </h1>
         <p className="text-slate-400 m-2 w-4/6">
