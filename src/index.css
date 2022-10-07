@@ -1,3 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .primary-btn {
+    @apply focus:outline-none hover:scale-90 text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5;
+  }
+  .menu-items {
+    @apply active:border-0 md:hover:scale-90 rounded-sm p-2 text-center cursor-pointer hover:bg-purple-700 active:bg-complement;
+  }
+  .mobile-menu {
+    @apply md:block md:w-auto w-full  border-slate-300 my-5 mx-2 rounded-md border;
+  }
+  .outline-btn {
+    @apply px-5 py-2.5 text-sm font-medium text-white focus:outline-none bg-transparent rounded-lg border border-gray-200 hover:bg-purple-700 hover:text-white  focus:z-10 focus:ring-4 focus:ring-gray-200 hover:scale-75;
+  }
+  .cta-btn {
+    @apply w-full inline-flex items-center justify-center px-4 py-2 bg-complement border border-transparent rounded-md font-semibold capitalize text-white hover:bg-purple-400 active:bg-purple-500 focus:outline-none focus:bg-purple-700 focus:ring disabled:opacity-25 transition hover:scale-105;
+  }
+  .redirect-btn {
+    @apply rounded py-2.5 px-5 text-white hover:text-gray-200 bg-complement mt-10  text-center;
+  }
+}

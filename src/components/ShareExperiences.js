@@ -56,14 +56,16 @@ const ShareExperiences = () => {
     navigate(`/experience/${id}`);
   };
 
+  console.log(exp);
+
   return (
     <>
       <div
-        className="md:container md:mx-auto min-h-screen flex  items-center justify-evenly flex-col sm:flex-col sm:flex-nowrap md:flex-col lg:flex-row xl:flex-row flex-wrap bg-black sm:overflow-scroll"
+        className="md:container md:mx-auto min-h-screen flex  items-center justify-evenly flex-col sm:flex-col sm:flex-nowrap md:flex-col lg:flex-row xl:flex-row flex-wrap bg-black overflow-y-scroll space-y-2 px-5 py-2 md:overscroll-none"
         id="exp"
       >
-        <div className="text-center w-full  ">
-          <h1 className="font-extrabold  text-white text-5xl sm:text-3xl ">
+        <div className="text-center w-full py-5">
+          <h1 className="font-extrabold  text-white text-3xl md:text-4xl">
             Find Interview Experiences here
           </h1>
           <div className="text-slate-400 text-2xl mt-4 sm:text-xl">

@@ -6,15 +6,18 @@ module.exports = {
       center: true,
     },
     screens: {
+      // sm: { max: "640px" },
+    },
+    screens: {
       sm: { max: "640px" },
 
-      md: { max: "768px" },
+      md: "768px",
 
-      lg: { max: "1024px" },
+      lg: "1024px",
 
-      xl: { max: "1280px" },
+      xl: "1280px",
 
-      "2xl": { max: "1536px" },
+      "2xl": "1536px",
     },
     extend: {
       colors: {
