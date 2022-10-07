@@ -93,15 +93,9 @@ const ShareExperiences = () => {
                   {`${data.workRole} - ${data.category} Experience`}
                 </h5>
                 <div class="px-2 pt-4 pb-2" onClick={() => openExperience(id)}>
-                  <span class="inline-block bg-slate-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-                    {data.company}
-                  </span>
-                  <span class="inline-block bg-slate-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-                    {data.result}
-                  </span>
-                  <span class="inline-block bg-slate-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-                    {`${data.salary} LPA`}
-                  </span>
+                  <span class="pill">{data.company}</span>
+                  <span class="pill">{data.result}</span>
+                  <span class="pill">{`${data.salary} LPA`}</span>
                 </div>
                 {user && user.uid === data.createdBy && (
                   <div className="flex mr-2">

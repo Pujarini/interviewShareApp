@@ -21,4 +21,7 @@
   .redirect-btn {
     @apply rounded py-2.5 px-5 text-white hover:text-gray-200 bg-complement mt-10  text-center;
   }
+  .pill {
+    @apply inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2;
+  }
 }

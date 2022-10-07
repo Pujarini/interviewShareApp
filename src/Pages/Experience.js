@@ -1,4 +1,4 @@
-import { doc, getDoc, writeBatch } from "firebase/firestore";
+import { doc, getDoc, setDoc, arrayUnion, updateDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { UserAuth } from "../context/AuthContext";
@@ -7,6 +7,7 @@ import { db } from "../firebase";
 const Experience = () => {
   const [data, setData] = useState({});
   const [postBy, setPostBy] = useState(null);
+  const [bookMarked, setBookMarked] = useState(false);
 
   const navigate = useNavigate();
 
@@ -18,6 +19,7 @@ const Experience = () => {
     const expRef = doc(db, "experiences", id);
     try {
       const docSnap = await getDoc(expRef);
+      console.log(docSnap.data());
       setData(docSnap.data());
     } catch (error) {
       console.log(error);
@@ -28,14 +30,31 @@ const Experience = () => {
     const userRef = doc(db, "users", data.createdBy);
     try {
       const docSnap = await getDoc(userRef);
+      // console.log(docSnap.data());
       setPostBy(docSnap.data());
     } catch (error) {
       console.log(error);
     }
   };
 
+  const fetchAllExperiences = async () => {
+    const docRef = doc(db, "bookmarks", user.uid);
+    const docSnap = await getDoc(docRef);
+    const { bookmark } = docSnap.data();
+    bookmark.forEach((item) => {
+      console.log(item.id, id);
+      if (item.id === id) {
+        setBookMarked(true);
+      }
+    });
+    // const {id : bookMarkId}= bookmark
+    // console.log(bookmark, "data");
+    // if(bookmark)
+  };
+
   useEffect(() => {
     fetchExperienceDetails();
+    fetchAllExperiences();
 
     // eslint-disable-next-line
   }, []);
@@ -49,29 +68,26 @@ const Experience = () => {
 
   const { workRole, category, company, experience } = data;
 
-  const addToBookMark = () => {
+  const addToBookMark = async () => {
     if (!user) {
       navigate("/login");
       // add alert to go login first and then bookmark
     } else {
-      const batch = writeBatch();
-
       const docRef = doc(db, "bookmarks", user.uid);
+      const expData = { data, id };
       try {
-        batch.set(docRef, {
-          expId: id,
-          ...data,
-        });
-        batch.commit();
-        // batch.set(docRef, { expId: id, ...data });
-        // batch.commit();
-        // setDoc(docRef, { expId: id, ...data })
-        //   .then(() => {
-        //     navigate("/bookmarks");
-        //   })
-        //   .catch((err) => {
-        //     console.log(err);
-        //   });
+        const docSnap = await getDoc(docRef);
+        console.log(docSnap.data(), "data");
+        if (docSnap.exists()) {
+          await updateDoc(docRef, {
+            bookmark: arrayUnion(expData),
+          });
+          console.log("Document data:", docSnap.data());
+        } else {
+          setDoc(docRef, { bookmark: arrayUnion(expData) });
+          console.log("created");
+        }
+        navigate("/bookmarks");
       } catch (error) {
         console.log(error);
       }
@@ -80,29 +96,38 @@ const Experience = () => {
 
   return (
     <>
-      <div className="md:container md:mx-auto h-screen bg-black flex items-center justify-center w-1/3 flex-col">
+      <div className="container md:mx-auto h-screen bg-black flex items-center justify-center  flex-col relative">
         <button
-          className="text-white hover:bg-gray-400  font-bold py-2 px-4 rounded border bg-complement mt-6"
-          onClick={addToBookMark}
+          className="redirect-btn left-10 absolute top-0 hover:scale-105"
+          onClick={() => navigate(-1)}
         >
           <span>Back</span>
         </button>
-        <div class="container  bg-dark m-auto  flex items-center justify-center flex-col p-5 text-white">
-          <h1 className="text-4xl text-center font-extrabold mb-2">{`${workRole} for ${category} role at ${company}`}</h1>
+        <div
+          class="container  bg-dark m-auto  flex items-center justify-center flex-col p-5 text-white"
+          // onClick={() => openExperience(id)}
+        >
+          <h1 className="text-3xl md:5xl text-center font-bold mb-2">{`${workRole} for ${category} role at ${company}`}</h1>
 
           {postBy && (
             <div className="text-xl text-slate-400 mb-5">{`Created by : ${postBy.name}`}</div>
           )}
-          <div className="border p-5 w-full flex items-center justify-center flex-col">
+          <div className="border py-2 w-full flex items-center justify-center flex-col">
             <button
-              className="text-white hover:bg-gray-400  font-bold py-2 px-4 rounded border bg-complement inline-flex items-center m-2"
+              className={`redirect-btn mt-2 hover:scale-110 ${
+                bookMarked
+                  ? "cursor-not-allowed disabled:opacity-30"
+                  : "cursor-pointer"
+              }`}
               onClick={addToBookMark}
             >
-              <span> + Add to Bookmarks </span>
+              <span>
+                {bookMarked ? "Added to Your BookMarks!" : "+ Add to Bookmarks"}
+              </span>
             </button>
-            {experience}
+            <p className="py-5">{experience}</p>
           </div>
-          <div className="m-2 text-slate-400">{`You got the offer at ${company}? We would be adding this feature soon! `}</div>
+          <div className="my-5 text-slate-400">{`You got the offer at ${company}? We would be adding this feature soon! `}</div>
         </div>
       </div>
     </>
