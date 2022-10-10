@@ -11,16 +11,19 @@ import {
 } from "firebase/firestore";
 import { UserAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import CardLoader from "./CardLoader";
 
 const ShareExperiences = () => {
   const [exp, setExp] = useState([]);
   const [openModal, setOpenModal] = useState({ edit: false, addNew: false });
   const [cardId, setCardId] = useState(null);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const { user } = UserAuth();
 
   useEffect(() => {
+    setLoading(true);
     const q = query(collection(db, "experiences"), orderBy("created", "desc"));
     onSnapshot(q, (querySnapshot) => {
       setExp(
@@ -29,6 +32,7 @@ const ShareExperiences = () => {
           data: doc.data(),
         }))
       );
+      setLoading(false);
     });
   }, []);
 
@@ -47,7 +51,11 @@ const ShareExperiences = () => {
   };
 
   const addExperience = () => {
-    setOpenModal({ edit: false, addNew: true });
+    if (!user) {
+      navigate("/login");
+    } else {
+      setOpenModal({ edit: false, addNew: true });
+    }
   };
 
   const closeModal = () => setOpenModal({ edit: false, addNew: false });
@@ -56,12 +64,10 @@ const ShareExperiences = () => {
     navigate(`/experience/${id}`);
   };
 
-  console.log(exp);
-
   return (
     <>
       <div
-        className="md:container md:mx-auto min-h-screen flex  items-center justify-evenly flex-col sm:flex-col sm:flex-nowrap md:flex-col lg:flex-row xl:flex-row flex-wrap bg-black overflow-y-scroll space-y-2 px-5 py-2 md:overscroll-none"
+        className="md:container md:mx-auto min-h-screen flex  items-center justify-evenly flex-col sm:flex-col sm:flex-nowrap md:flex-col lg:flex-row xl:flex-row flex-wrap bg-dark overflow-y-scroll space-y-2 px-5 py-2 md:overscroll-none shadow-lg"
         id="exp"
       >
         <div className="text-center w-full py-5">
@@ -72,19 +78,20 @@ const ShareExperiences = () => {
             Find according to role, companies and salaries
           </div>
         </div>
-        {user && (
-          <div className="block p-6 max-w-sm bg-dark rounded-lg border border-slate-200 shadow-md hover:bg-slate-400 dark:bg-dark dark:border-slate-400 dark:hover:bg-slate-400 ">
-            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-              Add new experience
-            </h5>
-            <button
-              className="flex justify-center items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 my-2 mr-2"
-              onClick={addExperience}
-            >
-              Add
-            </button>
-          </div>
-        )}
+
+        <div className="block p-6 max-w-sm bg-dark rounded-lg border border-slate-200 shadow-md hover:bg-slate-400 dark:bg-dark dark:border-slate-400 dark:hover:bg-slate-400 ">
+          <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+            Add new experience
+          </h5>
+          <button
+            className="flex justify-center items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 my-2 mr-2"
+            onClick={addExperience}
+          >
+            Add
+          </button>
+        </div>
+        {loading && <CardLoader />}
+
         {exp &&
           exp.map(({ data, id }) => {
             return (

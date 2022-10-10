@@ -1,7 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router";
 import Hero from "../images/hero.svg";
 
 const HeroSection = () => {
+  const navigate = useNavigate();
   return (
     <div
       className="container md:mx-auto min-h-screen  sm:flex-col bg-dark flex  items-center justify-center px-5"
@@ -19,7 +21,11 @@ const HeroSection = () => {
           <h1 className="text-3xl text-center font-extrabold mt-4 text-white">
             CREATE.{""} READ.{""} CRACK.
           </h1>
-          <button type="button" className="redirect-btn">
+          <button
+            type="button"
+            className="redirect-btn"
+            onClick={() => navigate("/login")}
+          >
             GET STARTED
           </button>
         </div>

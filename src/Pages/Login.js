@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Alert from "../components/Alert";
 import { UserAuth } from "../context/AuthContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  // const [error, setError] = useState("");
+  const [errorMsg, setErrorMsg] = useState(null);
 
   const navigate = useNavigate();
 
@@ -24,7 +25,8 @@ const Login = () => {
       .catch((err) => {
         const errMsg = err.message;
         console.log(errMsg);
-        // setError(errMsg);
+        setLoading(false);
+        setErrorMsg(errMsg);
       });
   };
 
@@ -48,6 +50,8 @@ const Login = () => {
         </div>
         <h2 className="mb-10 text-4xl font-extrabold text-white "> Login</h2>
 
+        {errorMsg && <Alert errorText={errorMsg} close={setErrorMsg} />}
+
         <form onSubmit={handleLogin}>
           <div className="mb-4">
             <label className="block mb-1 text-white" for="email">
@@ -58,7 +62,10 @@ const Login = () => {
               type="text"
               name="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                setErrorMsg("");
+              }}
               className="py-2 px-3 border border-gray-300 focus:border-blue-300 focus:outline-none focus:ring text-black focus:ring-blue-200 focus:ring-opacity-50 rounded-md shadow-sm disabled:bg-gray-100 mt-1 block w-full"
             />
           </div>
@@ -71,7 +78,10 @@ const Login = () => {
               type="password"
               name="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                setErrorMsg("");
+              }}
               className="py-2 px-3 border border-gray-300 focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-md shadow-sm disabled:bg-gray-100 mt-1 block w-full text-dark"
             />
           </div>

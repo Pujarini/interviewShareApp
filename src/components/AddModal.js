@@ -106,7 +106,7 @@ const AddModal = ({ openModal, closeModal, id }) => {
     <>
       {openModal.addNew || openModal.edit ? (
         <>
-          <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none  ">
+          <div className="justify-center items-center flex overflow-x-hidden overflow-y-hidden scroll-hidden fixed inset-0 z-50 outline-none focus:outline-none min-h-full ">
             <div className="relative w-auto my-6 mx-auto max-w-3xl  ">
               {/*content*/}
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full dark:bg-gray-800 outline-none focus:outline-none">
@@ -231,17 +231,13 @@ const AddModal = ({ openModal, closeModal, id }) => {
                     >
                       Close
                     </button>
-                    <button
-                      className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                      type="submit"
-                    >
+                    <button className="cta-btn" type="submit">
                       {`${
                         openModal.edit ? "Update Experience" : "Add Experience"
                       }`}
                     </button>
                   </div>
                 </form>
-                {/*footer*/}
               </div>
             </div>
           </div>

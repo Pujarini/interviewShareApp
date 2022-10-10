@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { setDoc, doc } from "firebase/firestore";
 import { db } from "../firebase";
 import { UserAuth } from "../context/AuthContext";
+import Alert from "../components/Alert";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -10,13 +11,15 @@ const Register = () => {
   const [workRole, setWorkRole] = useState("");
   const [org, setOrg] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmpassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
+
   let navigate = useNavigate();
 
   const { createUser } = UserAuth();
 
   const createNewUser = async (email, password) => {
-    console.log(email, password);
     try {
       const userCred = await createUser(email, password);
       const uid = userCred.user.uid;
@@ -30,23 +33,29 @@ const Register = () => {
           role: workRole,
           organization: org,
         });
+
         navigate("/");
       }
     } catch (error) {
-      console.log(error);
+      setErrorMessage(error.message);
+      setLoading(false);
     }
   };
 
   const handleSubmit = (e) => {
-    setLoading(true);
     e.preventDefault();
-    if (email && password) {
-      createNewUser(email, password);
+    if (password !== confirmpassword) {
+      setErrorMessage("Passwords do not match");
+    } else {
+      if (email && password) {
+        setLoading(true);
+        createNewUser(email, password);
+      }
     }
   };
 
   return (
-    <div className="md:container md:mx-auto  h-screen bg-dark flex w-full flex-col sm:justify-center items-center justify-center pt-6 sm:pt-0  text-white">
+    <div className="md:container md:mx-auto  min-h-screen bg-dark flex w-full flex-col sm:justify-center items-center justify-center pt-6 sm:pt-0  text-white">
       <div className="sm:max-w-md p-10 m-2 mx-auto">
         <div className="text-center mb-10">
           <h2 className="mb-2 text-5xl font-extrabold sm:text-4xl">
@@ -60,8 +69,12 @@ const Register = () => {
           Create your account
         </h2>
 
+        {errorMessage && (
+          <Alert errorText={errorMessage} close={setErrorMessage} />
+        )}
+
         <form onSubmit={handleSubmit}>
-          <div className="mb-4 text-black">
+          <div className="mb-4 text-black mt-4">
             <label className="block mb-1 text-white" for="email">
               Name
             </label>
@@ -71,8 +84,11 @@ const Register = () => {
               name="name"
               value={name}
               required
-              onChange={(e) => setName(e.target.value)}
-              className="py-2 px-3 border border-gray-300 focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-md shadow-sm disabled:bg-gray-100 mt-1 block w-full"
+              onChange={(e) => {
+                setName(e.target.value);
+                setErrorMessage("");
+              }}
+              className="input-box"
             />
           </div>
           <div className="mb-4">
@@ -85,8 +101,11 @@ const Register = () => {
               name="work-role"
               required
               value={workRole}
-              onChange={(e) => setWorkRole(e.target.value)}
-              className="py-2 px-3 border border-gray-300 focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-md shadow-sm disabled:bg-gray-100 mt-1 block w-full"
+              onChange={(e) => {
+                setWorkRole(e.target.value);
+                setErrorMessage("");
+              }}
+              className="input-box"
             />
           </div>
           <div className="mb-4">
@@ -99,8 +118,11 @@ const Register = () => {
               name="org"
               value={org}
               required
-              onChange={(e) => setOrg(e.target.value)}
-              className="py-2 px-3 border border-gray-300 focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-md shadow-sm disabled:bg-gray-100 mt-1 block w-full"
+              onChange={(e) => {
+                setOrg(e.target.value);
+                setErrorMessage("");
+              }}
+              className="input-box"
             />
           </div>
           <div class="mb-4">
@@ -113,8 +135,11 @@ const Register = () => {
               name="email"
               value={email}
               required
-              onChange={(e) => setEmail(e.target.value)}
-              className="py-2 px-3 border  text-dark border-gray-300 focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-md shadow-sm disabled:bg-gray-100 mt-1 block w-full"
+              onChange={(e) => {
+                setEmail(e.target.value);
+                setErrorMessage("");
+              }}
+              className="input-box"
             />
           </div>
           <div class="mb-4">
@@ -127,8 +152,28 @@ const Register = () => {
               name="password"
               value={password}
               required
-              onChange={(e) => setPassword(e.target.value)}
-              className="py-2 px-3 border text-dark border-gray-300 focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-md shadow-sm disabled:bg-gray-100 mt-1 block w-full"
+              onChange={(e) => {
+                setPassword(e.target.value);
+                setErrorMessage("");
+              }}
+              className="input-box"
+            />
+          </div>
+          <div class="mb-4">
+            <label className="block mb-1 text-white" for="password">
+              Confirm Password
+            </label>
+            <input
+              id="confirmpassword"
+              type="password"
+              name="confirmpassword"
+              value={confirmpassword}
+              required
+              onChange={(e) => {
+                setConfirmPassword(e.target.value);
+                setErrorMessage("");
+              }}
+              className="input-box"
             />
           </div>
           <div className="mt-6">
@@ -145,7 +190,6 @@ const Register = () => {
                   stroke="white"
                   enable-background="new 0 0 40 40"
                   className="animate-spin"
-                  // xml:space="preserve"
                 >
                   <path
                     opacity="0.2"
