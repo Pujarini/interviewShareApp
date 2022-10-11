@@ -5,10 +5,10 @@ This is an application where a user can add and read interview experiences from 
 Features
 
 1. You need to login -- add interview experience (p1) ✅
-2. Login Users can delete users and posts (p1) Authentication
+2. Login Users can delete posts (p1) Authentication  ✅
 3. Edit, update, delete and add interview experience (P0) ✅
 4. Search according to companies and roles (p0)
-5. Add skeleton on cards while loading (p1)
+5. Add skeleton on cards while loading (p1) ✅
 6. Add es-lint rules (p1)
 7. You can bookmark an experience (p0) ✅
 
