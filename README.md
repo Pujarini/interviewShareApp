@@ -17,6 +17,7 @@ Upcoming Features
 1. Add es-lint rules (p1)
 2. create  new route for experiences.
 3. Explore draft.js
+4. Add admin role
 
 ### Tech stack :
 
