@@ -9,8 +9,12 @@ Features
 3. Edit, update, delete and add interview experience (P0) ✅
 4. Search according to companies and roles (p0)
 5. Add skeleton on cards while loading (p1) ✅
-6. Add es-lint rules (p1)
-7. You can bookmark an experience (p0) ✅
+6. You can bookmark an experience (p0) ✅
+
+
+Upcoming Features
+
+1. Add es-lint rules (p1)
 
 ### Tech stack :
 
